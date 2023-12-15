@@ -110,3 +110,32 @@ if we assign anything to it it will be kept as a cookie in our browser just like
   req.session = undefined
     res.redirect('/')
 ```
+
+Just a quick reminder, the reason TS recognize the req.session is because we defined it at the very top of index.ts
+
+```
+//Middlewares
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
+app.use(cookieSession({keys : ['zxc']}))
+```
+
+And this is just to check whether the req.session has an value inside before we reach to the deeper level of the obj (preventing error)
+
+```
+if(req.session && req.session.loggedIn){}
+```
+
+Just a quick reminder of a middle ware it's a function after all
+
+```
+function requireAuth(req: Request, res: Response, next: NextFunction): void {
+  if (req.session && req.session.loggedIn) {
+    next();
+    return;
+  } else {
+    res.status(403);
+    res.send("Not premitted");
+  }
+}
+```
