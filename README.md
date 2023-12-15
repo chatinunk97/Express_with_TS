@@ -180,7 +180,7 @@ boat.sink() // logs 'SINK THE SHIP'
 To drive the point home
 This is what proves that
 <h2>
-1."Every Class we created creates a Prototype proptery (__proto__) which stores every method associated with our Class"
+1."Every Class we creat creates a Prototype proptery (__proto__) which stores every method associated with our Class"
 </h2>
 AND
 <h2>
