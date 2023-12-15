@@ -139,3 +139,51 @@ function requireAuth(req: Request, res: Response, next: NextFunction): void {
   }
 }
 ```
+
+# Decorator : Advance TS to help improve dev exp
+
+- JS reminder before diving in to Decorator
+
+ES2015 Class are just syntax sugar
+Behind the scene it's prototype and inherit system
+(Where we use constructor function and stuffs)
+
+Normal property like this.color = 'red' will be visible and attached to the instance of that class
+
+However, the method that is created inside a a class will end up in a '**proto**' property which is invisible to the system
+
+```
+class Boat{
+  color = 'red'
+  sail = ()=>{console.log("gogo")}
+}
+// sail will not be visible but can be access via __proto__ (this is only the behind the scene stuff we can still normally access it via Boat.sail())
+```
+
+Then when we invoke a method inside that prototype it will then search for the obj of reference and find the matching method then execute it
+
+_The interesting part_ is that we can still add a new method to the **CLASS** that has alredy have an instance created based on it
+AND!!! It will effect and change those instance as well !!
+
+```
+class Boat{
+  color = 'red'
+  sail = ()=>{console.log("gogo")}
+}
+
+const boat = new Boat()
+Boat.prototype.sink = function (){console.log("SINK THE SHIP")}
+boat.sink() // logs 'SINK THE SHIP'
+
+```
+
+To drive the point home
+This is what proves that
+<h2>
+1."Every Class we created creates a Prototype proptery (__proto__) which stores every method associated with our Class"
+</h2>
+AND
+<h2>
+2.We can modify the Class with (class.prototype) even after we've defined the class OR even after we created an instance from it which it will effect every instance event the created instance
+(This is because of the point 1)
+</h2>
