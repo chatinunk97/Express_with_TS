@@ -179,6 +179,7 @@ boat.sink() // logs 'SINK THE SHIP'
 
 To drive the point home
 This is what proves that
+
 <h2>
 1."Every Class we creat creates a Prototype proptery (__proto__) which stores every method associated with our Class"
 </h2>
@@ -187,3 +188,46 @@ AND
 2.We can modify the Class with (class.prototype) even after we've defined the class OR even after we created an instance from it which it will effect every instance event the created instance
 (This is because of the point 1)
 </h2>
+
+# Refactor the hard way Express + TS
+
+The goal to this is to use Decorators (see in feature folder in TS repo)
+Decorators can manipulate functions right ?
+So we can have a method as a middleware in a class like class LoginController{}
+
+```
+postLogin(req:Request , res:Response):void{
+  if(){
+    ...
+  }
+
+  res.send(`<h1>Good ! You're Logged IN </h1>`)
+}
+```
+
+then we add a decorator to specify the path to this method
+
+```
+const router = Router()
+.
+.
+@post('/login')
+postLogin(...)
+.
+.
+.
+.
+function post(routerName : string){
+  return function(target : any , key:string,desc : PropertyDescriptor){
+    router.post(routerName , target[key])
+  }
+}
+```
+
+\*Disclaimer this is not the real code it's just the concepts
+So now when we call the method postLogin we will now have to satisfy the post as well so it's working just like a controller
+
+But problem arise when we have multiple Decorators
+when we want to add in more middleware it's not quite possible to reach back into other Decorator result
+
+# Metadata (reflect-metadata)
