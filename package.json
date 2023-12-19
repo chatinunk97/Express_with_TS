@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:build": "tsc -w",
-    "start:runm": "nodemon build/index.js",
+    "start:run": "nodemon build/index.js",
     "start": "concurrently npm:start:*"
   },
   "keywords": [],
@@ -19,6 +19,7 @@
     "concurrently": "^8.2.2",
     "cookie-session": "^2.0.0",
     "express": "^4.18.2",
-    "nodemon": "^3.0.2"
+    "nodemon": "^3.0.2",
+    "reflect-metadata": "^0.2.1"
   }
 }

@@ -231,3 +231,59 @@ But problem arise when we have multiple Decorators
 when we want to add in more middleware it's not quite possible to reach back into other Decorator result
 
 # Metadata (reflect-metadata)
+
+(look at repo about TS feature for more info)
+
+# Express with Decorators
+
+- Remember that in order to create a router and plug it into Express
+  you need to create a new Router
+
+```
+export const router = express.Router();
+```
+
+importing using index.ts as a main export for that directory
+
+The index.ts file in the directory will look something like this
+
+```
+export * from "./controller";
+export * from "./routes";
+
+```
+
+```
+//From
+import { get } from "./decorators/routes";
+import { controller } from "./decorators/controller";
+//To
+import { get, controller } from "./decorators";
+```
+
+# Singleton the Router
+
+_Singletons are classes which can be instantiated once, and can be accessed globally._
+
+As mentioend above we are creating multiple routers and pluging it into
+the express app which is note quite good
+We can use singleton and create a class for the AppRouter and have all of the middleware use import it and then use it
+
+src/AppRouter.ts
+
+```
+import express from "express";
+
+export class AppRouter {
+  private static instance: express.Router;
+
+  static getInstance(): express.Router {
+    if (!AppRouter.instance) {
+      AppRouter.instance = express.Router();
+    }
+
+    return AppRouter.instance;
+  }
+}
+
+```
